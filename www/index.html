@@ -282,8 +282,8 @@
   }
 
   function onOChange()   {
+    doBrightScreen();
     ORIENT = (screen.height > screen.width) ? "portrait" : "landscape";
-
     getScreenSize();
 
     if (ORIENT == "landscape")   {
