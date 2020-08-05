@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.phonegap.dingster" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>The Dingster</name>
+    <description>
+      Gives Audio Indication of the charging status of a phone or tablet
+    </description>
+    <author email="umikeapps@outlook.com">
+      UMike Apps : Real Solutions for Real Problems
+    </author>
+    <content src="index.html" />
+    <icon src="icon.png" />
+    <preference name="android-minSdkVersion" value="21" />
+    <preference name="android-targetSdkVersion" value="28" />
+
+    <plugin name="phonegap-plugin-battery-status" source="npm" />
+    <plugin name="cordova-plugin-media" source="npm" spec="~2.2.0" />
+    <plugin name="cordova-plugin-insomnia" version="4.1.0" source="npm" />
+    <access origin="*" />
+</widget>

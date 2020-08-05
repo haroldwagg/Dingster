@@ -1,0 +1,615 @@
+<html>
+<head>
+<!--
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
+-->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    #container {
+      margin: auto;
+      width: 300px;
+      height: 300px;
+      position: relative;
+      margin-top: 2em;
+      -webkit-transition: filter 2s ease;
+    }
+    body {
+      background-color: #000;
+    }
+    #settingsDiv {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 97px;
+      background-color: #ccc;
+      padding-top: 7px;
+      padding-bottom: 10px;
+      -webkit-transition: filter 2s ease;
+    }
+    #settingsP {
+      text-align: center;
+    }
+    #speakCheck {
+      width: 25px;
+      height: 25px;
+    }
+  </style>
+
+</head>
+<body background-color="#000">
+
+<div id="logoDiv" onClick ="doBrightScreen()" style="position: absolute; top: 0; left: 0"><img id="logoPic" src="logo4.png" onClick ="doBrightScreen()" style="visibility: hidden;"" /></div>
+
+<a onClick="doBrightScreen()"><div id="container"onClick="doBrightScreen()"></div></a>
+<a onClick="doBrightScreen()"><div id="chargingIndicatorDiv" style="text-align: center;">
+  <img src="" id="chargingIndicator" style="visibility: hidden; width: 7em; margin-top: 20px; -webkit-transition: filter 2s ease; border-radius: 8px;" />
+  <img src="help.png" id="helpButton" onClick="doHelp()" style="visibility: hidden; text-decoration: none; -webkit-transition: filter 2s ease;" />
+  <img src="x.png" id="xButton" onClick="confirmExit()" style="visibility: hidden; text-decoration: none; -webkit-transition: filter 2s ease;" />
+
+</div></a>
+
+<div id="settingsDiv">
+  <a onClick="doBrightScreen()"><p id="settingsP">
+    Ding every &nbsp;&nbsp;<input style="width: 38%" type="range" min="0" max="30" value="12" step="2" class="slider" id="delayRange" oninput="displayDelayTime(this.value)" />&nbsp;&nbsp; <span id="delayMsg">4 mins</span>
+    <br />
+    <select id="manualChimes" onChange="manualDing(this)" style="margin: 10px; font-size: 1em;">
+      <option selected disabled>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hear the Dings</option>
+      <option value="fullcharge">Play FULL CHARGE Ding</option>
+      <option value="upper">Play CHARGING Ding</option>
+      <option value="downer">Play NOT CHARGING Ding</option>
+      <option value="nochange">Play NO CHANGE Ding</option>
+    </select>
+    <br />
+      Volume: &nbsp;&nbsp;<input type="range" min="0" max="1.0" value="0.7" step="0.1" class="slider" id="volumeRange" oninput="adjustVolume(this.value)" style="width: 40%;" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Speak %&nbsp;<input type="checkbox" id="speakCheck" onClick="doSpeakPercent()" />
+  </p></a>
+
+</div>
+
+<script>
+
+  var DIM_DELAY = 120000;
+  var SIZE;
+  var ORIENT;
+  var ratio = window.devicePixelRatio || 1;
+
+  var p = window.location.pathname;
+  this.root = p.substring(0, p.lastIndexOf('/')) + "/";
+
+  var value;
+  var bar;
+  var batteryValue;
+  var PLUGGED_STATUS;
+  var isDim = false;
+
+  var UP_DING = "audio/UpBeep.mp3";
+  var DOWN_DING = "audio/DownBeep.mp3";
+  var NC_DING = "audio/NoChangeBeep.mp3";
+  var CHARGED_DING = "audio/FullCharge.mp3";
+  var COUNTDOWN_FILE = "audio/countwav.wav";
+  var CHARGING_FILE = "audio/Charging.mp3";
+  var DISCONNECTED_FILE = "audio/ChargerDisconnected.mp3";
+  var CHARGED_FILE = "audio/Charged.mp3";
+  var percentDingFile = "";
+  var my_dinger;
+  var snd;
+
+  var DING_DELAY = 240000;
+  var SPEAK_PERCENT = false;
+  var safeToDing = true;
+  var failSafe = 0;
+  var CURRENT_VOLUME = 0.7;
+  var SPEAK_PERCENT;
+  var my_percent_dinger = "undefined";
+  var dingLooper;
+  var dimTimer, audioTimer;
+
+  var hasBeen100 = false;
+  var the99count = 0;
+  var prevReading = 0;
+
+
+  var myColors = [
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff0000",
+    "#ff1200",
+    "#ff2400",
+    "#ff3700",
+    "#ff4900",
+    "#ff5b00",
+    "#ff6d00",
+    "#ff8000",
+    "#ff9200",
+    "#ffa400",
+    "#ffb600",
+    "#ffc800",
+    "#ffdb00",
+    "#ffed00",
+    "#ffff00",
+    "#ffff00",
+    "#ffff00",
+    "#ffff00",
+    "#ffff00",
+    "#ffff00",
+    "#ffff00",
+    "#ffff00",
+    "#ffff00",
+    "#ffff00",
+    "#ffff00",
+    "#ffff00",
+    "#ffff00",
+    "#ffff00",
+    "#ffff00",
+    "#ffff00",
+    "#ffff00",
+    "#ffff00",
+    "#ffff00",
+    "#ffff00",
+    "#ffff00",
+    "#ffff00",
+    "#ffff00",
+    "#edfe00",
+    "#dbfd00",
+    "#c8fc00",
+    "#b6fb00",
+    "#a4fa00",
+    "#92f900",
+    "#80f800",
+    "#6df700",
+    "#5bf600",
+    "#49f500",
+    "#37f400",
+    "#24f300",
+    "#12f200",
+    "#00f200",
+    "#00f200",
+    "#00f200",
+    "#00f200",
+    "#00f200",
+    "#00f200",
+    "#00f200",
+    "#00f200",
+    "#00f200",
+    "#00f200",
+    "#00f200",
+    "#0000ee"
+  ];
+
+  document.addEventListener("deviceready", starter, false);
+//  window.onload = setTimeout(function() {starter();}, 1000);
+  window.addEventListener("orientationchange", onOChange);
+
+  function starter()   {
+    window.plugins.insomnia.keepAwake();
+    setTimeout(function() { processDings(); }, 5500);
+    dimTimer = setTimeout(function() { doDimScreen(); }, DIM_DELAY);
+    initializeBar();
+    onOChange();
+  }
+
+  function initializeBar()   {
+    bar = new ProgressBar.Circle(container, {
+      color: '#eee',
+      // This has to be the same size as the maximum width to
+      // prevent clipping
+      strokeWidth: 8,
+      trailWidth: 3,
+      // easing: 'easeInOut',
+      easing: 'easeInOut',
+      duration: 5400,
+      text: {
+        autoStyleContainer: false
+      },
+      from: { color: '#aaa', width: 3 },
+      to: { color: '#333', width: 8 },
+      // Set default step function for all animate calls
+      step: function(state, circle) {
+        value = Math.round(circle.value() * 100);
+
+        circle.path.setAttribute('stroke', myColors[value]);
+        circle.path.setAttribute('stroke-width', state.width);
+
+         if (value === 0) {
+          circle.setText('');
+        } else {
+          circle.setText(value + "%");
+        }
+      }
+    });
+    bar.text.style.fontFamily = 'sans-serif';
+    bar.text.style.fontSize = '4rem';
+    bar.text.style.fontWeight = 'bold';
+    bar.text.style.color = '#cccccc';
+
+    doAReading();
+
+  }
+
+  function getScreenSize()   {
+    var ratio = window.devicePixelRatio || 1;
+    if ((screen.height / ratio > 780) || (screen.width / ratio > 780))   {
+      SIZE = "big";
+    }
+    else   {
+      SIZE = "small";
+    }
+  }
+
+  function doScreenSpecs()  {
+    var oput = "ORIENTATION: " + ORIENT + "\rSCREEN WIDTH: " + screen.width;
+    oput += "\rSCREEN HEIGHT: " + screen.height + "\rPIXEL RATIO: " + ratio;
+    alert (oput);
+  }
+
+  function onOChange()   {
+    ORIENT = (screen.height > screen.width) ? "portrait" : "landscape";
+
+    getScreenSize();
+
+    if (ORIENT == "landscape")   {
+      var useableHeight = window.innerHeight - 105;
+      var containerDim = Math.floor(useableHeight - 350);
+      containerDim = Math.floor(containerDim / ratio);
+      document.getElementById('container').style.marginTop = '.75em';
+
+      if (SIZE == "small")   {
+        document. getElementById('chargingIndicator').style.width = '4em';
+        document. getElementById('chargingIndicator').style.marginTop = '10px';
+        document. getElementById('logoPic').style.height = "5em";
+      }
+    }
+    else   {  // portrait
+      var useableWidth = screen.width;
+      var containerDim = Math.floor(useableWidth);
+      containerDim = Math.floor((containerDim / ratio) * 1.2);
+      if (SIZE == "small")   {
+        document. getElementById('chargingIndicator').style.width = '6em';
+        document. getElementById('logoPic').style.height ="6em"
+      }
+      var tMargin = (screen.height - 270 - containerDim) / 2;
+
+      var v = "document.getElementById('container').style.marginTop = '" + Math.floor(tMargin) + "px'";
+      eval(v);
+    }
+
+    if (containerDim < 500)   {
+      bar.text.style.fontSize = '4rem';
+      document.getElementById('helpButton').style.width = '3rem';
+      document.getElementById('xButton').style.width = '3rem';
+    }
+    else   {
+      bar.text.style.fontSize = '7.5rem';
+      document.getElementById('helpButton').style.width = '3.5rem';
+      document.getElementById('xButton').style.width = '3.5rem';
+    }
+
+
+    var s = "document.getElementById('container').style.width = '" + containerDim + "px'";
+    eval(s)
+    var t = "document.getElementById('container').style.height = '" + containerDim + "px'";
+    eval(t);
+
+    document.getElementById('helpButton').style.position = 'absolute';
+    document.getElementById('helpButton').style.left = '12px';
+    document.getElementById('helpButton').style.bottom = 0;
+    document.getElementById('helpButton').style.marginBottom = '122px';
+
+    document.getElementById('xButton').style.position = 'absolute';
+    document.getElementById('xButton').style.right = '12px';
+    document.getElementById('xButton').style.bottom = 0;
+    document.getElementById('xButton').style.marginBottom = '122px';
+
+
+    document.getElementById('helpButton').style.visibility = 'visible';
+    document.getElementById('xButton').style.visibility = 'visible';
+    document.getElementById('logoPic').style.visibility = 'visible';
+  }
+
+//  alert("screen.height = " + screen.height + "\nscreen.availHeight = " + screen.availHeight + "\nwindow.innerHeight = " + window.innerHeight + "\ndocument.body.clientHeight = " + document.body.clientHeight + "\nwindow.outerHeight = " + window.outerHeight + "\n\nscreen.width = " + screen.width + "\nscreen.availWidth = " + screen.availWidth + "\nwindow.innerWidth = " + window.innerWidth + "\ndocument.body.clientWidth = " + document.body.clientWidth + "\nwindow.outerWidth = " + window.outerWidth);
+
+  function displayDelayTime(theValue)   {
+    let tempp = theValue / 18.258;
+    let tempp2 = tempp * tempp * 11.112;
+    var minuteDelay = Math.floor(tempp2);
+
+    if (minuteDelay == 0)   {
+      document.getElementById('delayMsg').innerHTML = "OFF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+      clearTimeout(dingLooper);
+    }
+    else   {
+      document.getElementById('delayMsg').innerHTML = minuteDelay + " mins";
+      DING_DELAY = minuteDelay * 60 * 1000;
+      clearTimeout(dingLooper);
+      dingLooper = setTimeout(function() { processDings(); }, DING_DELAY);
+    }
+  }
+
+  function processDings()   {
+    var currentReading = batteryValue;
+
+// alert(currentReading + " || " + prevReading);
+
+    if (currentReading == 100)   {
+      the99count++;
+      hasBeen100 = true;
+      doDing("fullcharge", false);
+    }
+    else if (currentReading > prevReading)   {
+      if (currentReading == 99)   {
+        the99count++;
+        if (the99count >= 4)   {
+          doDing("fullcharge", false);
+        }
+        else   {
+          doDing("upper", false);
+        }
+      }
+      else   {
+        the99count = 0;
+        doDing("upper", false);
+      }
+    }
+    else if (currentReading < prevReading)   {
+      if (currentReading < 99)   {
+        the99count = 0;
+        hasBeen100 = false;
+        doDing("downer", false);
+      }
+      else   {
+        the99count++;
+        if (the99count >= 4 || hasBeen100)   {
+          doDing("fullcharge", false);
+        }
+        else   {
+          doDing("downer", false);
+        }
+      }
+    }
+    else if (currentReading == prevReading)   {
+      if (currentReading == 99)   {
+        the99count++;
+        if (the99count >= 4 || hasBeen100)   {
+          doDing("fullcharge", false);
+        }
+        else   {
+          doDing("nochange", false);
+        }
+      }
+      else   {
+        doDing("nochange", false);
+      }
+    }
+
+    prevReading = currentReading;
+    dingLooper = setTimeout(function() { processDings(); }, DING_DELAY);
+  }
+
+  function doAReading()   {
+    doBrightScreen();
+    navigator.getBattery().then(function(battery) {
+      batteryValue = Math.round(battery.level * 100);
+      PLUGGED_STATUS = battery.charging;
+      bar.animate(batteryValue/100);
+
+      if (PLUGGED_STATUS)   {
+        document.getElementById('chargingIndicator').src = "chargedACTIVE.png";
+      }
+      else   {
+        document.getElementById('chargingIndicator').src = "nochargingINACTIVE.png";
+      }
+
+      document.getElementById('chargingIndicator').style.visibility = "visible";
+
+        battery.onchargingchange = function() { onChargeChg(); };
+
+        battery.onlevelchange = function() {
+          batteryValue = Math.round(battery.level * 100);
+          bar.animate(batteryValue/100);
+        };
+      }
+    );
+  }
+
+  function doDing(dir, noPercent)   {
+    var noPercent = noPercent || false;
+
+    if (SPEAK_PERCENT && ! noPercent)   {
+      var Percenter = setTimeout(talkPercent, 1250);
+    }
+
+    if (dir == "disconnected")   {
+      playSound("disconnected", { volume: CURRENT_VOLUME });
+    }
+    else if (dir == "charging")   {
+      playSound("charging", { volume: CURRENT_VOLUME });
+    }
+    else if (dir == "downer")   {
+      playSound("downer", { volume: CURRENT_VOLUME });
+    }
+    else if (dir == "upper")   {
+      playSound("upper", { volume: CURRENT_VOLUME });
+    }
+    else if (dir == "nochange")   {
+      playSound("nochange", { volume: CURRENT_VOLUME });
+    }
+    else if (dir == "fullcharge")   {
+      playSound("fullcharge", { volume: CURRENT_VOLUME });
+    }
+    else if (dir == "charged")   {
+      playSound("charged", { volume: CURRENT_VOLUME });
+    }
+  }
+
+  function manualDing(sel)   {
+    doDing(sel.options[sel.selectedIndex].value, true);
+    document.getElementById("manualChimes").options[0].selected = true;
+  }
+
+  function onChargeChg()   {
+    doBrightScreen();
+    navigator.getBattery().then(function(battery) {
+      PLUGGED_STATUS = battery.charging;
+      if (battery.charging)   {
+        doDing('charging', true);
+        document.getElementById('chargingIndicator').src = "chargedACTIVE.png";
+      }
+      else   {
+        doDing('disconnected', true);
+        document.getElementById('chargingIndicator').src = "nochargingINACTIVE.png";
+      }
+    });
+  }
+
+  function doSpeakPercent()   {
+    SPEAK_PERCENT = document.getElementById('speakCheck').checked ? true : false;
+  }
+
+
+  function adjustVolume(v)   {
+    CURRENT_VOLUME = v;
+  }
+
+  function doDimScreen()   {
+    document.getElementById("container").style.WebkitTransition = "filter 2s ease";
+    document.getElementById("chargingIndicator").style.WebkitTransition = "filter 2s ease";
+    document.getElementById("settingsDiv").style.WebkitTransition = "filter 2s ease";
+    document.getElementById("helpButton").style.WebkitTransition = "filter 2s ease";
+    document.getElementById("xButton").style.WebkitTransition = "filter 2s ease";
+    document.getElementById("container").style.filter = "brightness(30%)";
+    document.getElementById("chargingIndicator").style.filter = "brightness(30%)";
+    document.getElementById("settingsDiv").style.filter = "brightness(0%)";
+    document.getElementById("helpButton").style.filter = "brightness(0%)";
+    document.getElementById("xButton").style.filter = "brightness(0%)";
+    isDim = true;
+  }
+
+  function doBrightScreen()   {
+    document.getElementById("container").style.WebkitTransition = "none";
+    document.getElementById("chargingIndicator").style.WebkitTransition = "none";
+    document.getElementById("settingsDiv").style.WebkitTransition = "none";
+    document.getElementById("helpButton").style.WebkitTransition = "none";
+    document.getElementById("xButton").style.WebkitTransition = "none";
+    document.getElementById("container").style.filter = "brightness(100%)";
+    document.getElementById("chargingIndicator").style.filter = "brightness(100%)";
+    document.getElementById("settingsDiv").style.filter = "brightness(100%)";
+    document.getElementById("helpButton").style.filter = "brightness(100%)";
+    document.getElementById("xButton").style.filter = "brightness(100%)";
+    isDim = false;
+    clearTimeout(dimTimer);
+    dimTimer = setTimeout(function() { doDimScreen(); }, DIM_DELAY);
+  }
+
+  function doHelp()   {
+    navigator.notification.alert(
+      "If your phone and its charger are not always the best of friends, then The Dingster is for you. " +
+        " This app will monitor your device while it charges and let you know whether everything is OK or whether there may be a problem with which you need to deal.\n\n" +
+        " The Dingster will check on your charging and let you know the status with an unobtrusive ding. There are different dings for \"Charging\", \"Discharging\" and \"No Change\". " +
+        " So even if you're not looking at your phone, you'll know it's still charging -- or not. If you hear the \"Discharging\" ding, it's time to make sure the charger is still plugged in, or time to wiggle the charging cable, or whatever else you might have to do to get things charging again.\n\n" +
+        " You can set The Dingster to ding as often as you like, however if you make it too frequently, you may get a lot of \"No Change\" dings. Usually once every 8 to 10 minutes works best for most devices.\n\n" +
+        " You can either leave The Dingster up and watch your device charge, or by tapping your [BACK] or [HOME] button, you can use your device normally while The Dingster still keeps track of the battery.\n\n" +
+        " THe Dingster will keep on dinging until you exit the app using the red \"X\" on the lower right of the app.\n\nThank you for choosing The Dingster.\numikeapps@outlook.com\n\n",
+      "",
+      "Welcome to The Dingster",
+      "DISMISS"
+    );
+  }
+
+  function talkPercent()   {
+    if (batteryValue == 100 || hasBeen100)   {
+      playSound("charged", { volume: CURRENT_VOLUME });
+      return;
+    }
+
+    if (percentDingFile == "")   {
+      percentDingFile = this.root + COUNTDOWN_FILE;
+      snd = new Audio(percentDingFile);
+    }
+
+    snd.currentTime = batteryValue * 5;
+    snd.volume = CURRENT_VOLUME * 0.30;
+
+    audioTimer = setTimeout(function() { snd.pause(); snd.currentTime = 0; }, 4000);
+    snd.play();
+  }
+
+  function doExit()   {
+    clearTimeout(dimTimer);
+    clearTimeout(dingLooper);
+    window.plugins.insomnia.allowSleepAgain();
+    navigator.app.exitApp();
+  }
+
+  function confirmExit()   {
+    var q = confirm("You are about to exit The Dingster. \nIs this what you want to do?");
+    if (q == true)   {
+      doExit();
+    }
+    else   {
+      return;
+    }
+  }
+
+  document.addEventListener("backbutton", function (e) {               // Disable Back Button
+      e.preventDefault();
+      var q = confirm("You are about to exit The Dingster. \nIs this what you want to do?");
+      if (q == true)   {
+        doExit();
+      }
+      else   {
+        ;
+      }
+    },
+  false );
+
+
+
+</script>
+
+<script src="progressbar.js"></script>
+<script type="text/javascript" src="Insomnia.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
+ <script src="sounds.js" type="text/javascript"></script>
+
+
+</body>
+</html>
