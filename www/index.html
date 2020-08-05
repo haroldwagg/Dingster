@@ -454,6 +454,10 @@
         battery.onlevelchange = function() {
           batteryValue = Math.round(battery.level * 100);
           bar.animate(batteryValue/100);
+
+          if(batteryValue == 100 && prevReading > 0)   {
+            doDing("fullcharge", true);
+          }
         };
       }
     );
@@ -549,7 +553,6 @@
   }
 
   function doHelp()   {
-    alert("here");
     navigator.notification.alert(
       "If your phone and its charger are not always the best of friends, then The Dingster is for you. " +
         " This app will monitor your device while it charges and let you know whether everything is OK or whether there may be a problem with which you need to deal.\n\n" +
