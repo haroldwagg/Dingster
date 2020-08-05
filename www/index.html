@@ -297,6 +297,9 @@
         document. getElementById('chargingIndicator').style.marginTop = '10px';
         document. getElementById('logoPic').style.height = "5em";
       }
+      else   {
+        document. getElementById('logoPic').style.height = "4.4em";
+      }
     }
     else   {  // portrait
       var useableWidth = screen.width;
@@ -313,7 +316,13 @@
     }
 
     if (containerDim < 500)   {
-      bar.text.style.fontSize = '4rem';
+      if (ORIENT == "landscape")   {
+        bar.text.style.fontSize = '3.1rem';
+      }
+      else   {
+        bar.text.style.fontSize = '4rem';
+      }
+
       document.getElementById('helpButton').style.width = '3rem';
       document.getElementById('xButton').style.width = '3rem';
     }
