@@ -297,7 +297,7 @@
       containerDim = Math.floor(useableWidth);
       containerDim = Math.floor((containerDim / ratio) * 1.2);
     }
-alert("ContainerDim = " + containerDim);
+// alert("ContainerDim = " + containerDim);
 
     if (containerDim < 500)   {
 //  SMALL ALL
@@ -306,7 +306,7 @@ alert("ContainerDim = " + containerDim);
 
 //  SMALL LANDSCAPE
       if (ORIENT == "landscape")   {
-alert("small landscape");
+// alert("small landscape");
         document.getElementById('container').style.marginTop = '.75em';
 
         document.getElementById('chargingIndicator').style.width = '4em';
@@ -323,7 +323,7 @@ alert("small landscape");
       }
 //  SMALL PORTRAIT
       else   {
-alert("small portrait");
+// alert("small portrait");
         bar.text.style.fontSize = '4rem';
         document.getElementById('chargingIndicator').style.width = '6em';
         document.getElementById('logoPic').style.height ="6em";
@@ -340,14 +340,14 @@ alert("small portrait");
 
 //  LARGE LANDSCAPE
       if (ORIENT == "landscape")   {
-alert("large landscape");
+// alert("large landscape");
         document.getElementById('container').style.marginTop = '.75em';
         document.getElementById('logoPic').style.height = '6rem';
         bar.text.style.fontSize = '6rem';
       }
 //  LARGE PORTRAIT
       else   {
-alert("large portrait");
+// alert("large portrait");
         document. getElementById('logoPic').style.height ='5rem';
         bar.text.style.fontSize = '7.5rem';
         document.getElementById('chargingIndicator').style.width = '7em';
