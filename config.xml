@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.phonegap.dingster" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>The Dingster</name>
+    <name>the Dingster</name>
     <description>
       Gives Audio Indication of the charging status of a phone or tablet
     </description>
