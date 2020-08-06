@@ -291,7 +291,7 @@
 
     if (ORIENT == "landscape")   {
       var useableHeight = screen.height;
-      containerDim = Math.floor(useableHeight - 200);
+      containerDim = Math.floor(useableHeight - (115 * ratio));
       containerDim = Math.floor(containerDim);
     }
     else   {   // portrait
