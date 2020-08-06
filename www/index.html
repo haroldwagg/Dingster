@@ -341,10 +341,11 @@ alert("large landscape");
 //  LARGE PORTRAIT
       else   {
 alert("large portrait");
-        document. getElementById('logoPic').style.height ='6rem';
+        document. getElementById('logoPic').style.height ='5rem';
         bar.text.style.fontSize = '7.5rem';
+        document.getElementById('chargingIndicator').style.width = '12em';
 
-        var tMargin = (screen.height - 270 - containerDim) / 2;
+        var tMargin = (screen.height - 265 - containerDim) / 2;
         var v = "document.getElementById('container').style.marginTop = '" + Math.floor(tMargin) + "px'";
         eval(v);
       }
