@@ -312,7 +312,12 @@ alert("small landscape");
         document.getElementById('chargingIndicator').style.marginTop = '10px';
         document.getElementById('logoPic').style.height = "5em";
 
-        bar.text.style.fontSize = '3.1rem';
+        if (containerDim < 350)   {
+          bar.text.style.fontSize = '3.1rem';
+        }
+        else   {
+          bar.text.style.fontSize = '4.5rem';
+        }
       }
 //  SMALL PORTRAIT
       else   {
