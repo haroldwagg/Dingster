@@ -290,14 +290,14 @@
 //    alert("screen.height = " + screen.height + "\nscreen.availHeight = " + screen.availHeight + "\nwindow.innerHeight = " + window.innerHeight + "\ndocument.body.clientHeight = " + document.body.clientHeight + "\nwindow.outerHeight = " + window.outerHeight + "\n\nscreen.width = " + screen.width + "\nscreen.availWidth = " + screen.availWidth + "\nwindow.innerWidth = " + window.innerWidth + "\ndocument.body.clientWidth = " + document.body.clientWidth + "\nwindow.outerWidth = " + window.outerWidth);
 
     if (ORIENT == "landscape")   {
-      var useableHeight = screen.height - 75;
-      containerDim = Math.floor(useableHeight);
-      containerDim = Math.floor(containerDim / ratio);
+      var useableHeight = screen.height;
+      containerDim = Math.floor(useableHeight - 200);
+      containerDim = Math.floor(containerDim);
     }
     else   {   // portrait
       var useableWidth = screen.width;
-      containerDim = Math.floor(useableWidth);
-      containerDim = Math.floor((containerDim / ratio) * 1.2);
+      containerDim = Math.floor(useableWidth - 150);
+      containerDim = Math.floor((containerDim) * 1.2);
     }
 // alert("ContainerDim = " + containerDim);
 
@@ -309,7 +309,7 @@
 //  SMALL LANDSCAPE
       if (ORIENT == "landscape")   {
 // alert("small landscape");
-        document.getElementById('container').style.marginTop = '1.1em';
+        document.getElementById('container').style.marginTop = '.3em';
 
         document.getElementById('chargingIndicator').style.width = '4em';
         document.getElementById('chargingIndicator').style.marginTop = '10px';
