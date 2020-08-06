@@ -287,11 +287,11 @@
     doBrightScreen();
     ORIENT = (screen.height > screen.width) ? "portrait" : "landscape";
 
-    alert("screen.height = " + screen.height + "\nscreen.availHeight = " + screen.availHeight + "\nwindow.innerHeight = " + window.innerHeight + "\ndocument.body.clientHeight = " + document.body.clientHeight + "\nwindow.outerHeight = " + window.outerHeight + "\n\nscreen.width = " + screen.width + "\nscreen.availWidth = " + screen.availWidth + "\nwindow.innerWidth = " + window.innerWidth + "\ndocument.body.clientWidth = " + document.body.clientWidth + "\nwindow.outerWidth = " + window.outerWidth);
+//    alert("screen.height = " + screen.height + "\nscreen.availHeight = " + screen.availHeight + "\nwindow.innerHeight = " + window.innerHeight + "\ndocument.body.clientHeight = " + document.body.clientHeight + "\nwindow.outerHeight = " + window.outerHeight + "\n\nscreen.width = " + screen.width + "\nscreen.availWidth = " + screen.availWidth + "\nwindow.innerWidth = " + window.innerWidth + "\ndocument.body.clientWidth = " + document.body.clientWidth + "\nwindow.outerWidth = " + window.outerWidth);
 
     if (ORIENT == "landscape")   {
-      var useableHeight = window.innerHeight - 105;
-      containerDim = Math.floor(useableHeight - 350);
+      var useableHeight = screen.height - 75;
+      containerDim = Math.floor(useableHeight);
       containerDim = Math.floor(containerDim / ratio);
     }
     else   {   // portrait
@@ -309,7 +309,7 @@
 //  SMALL LANDSCAPE
       if (ORIENT == "landscape")   {
 // alert("small landscape");
-        document.getElementById('container').style.marginTop = '.75em';
+        document.getElementById('container').style.marginTop = '1.1em';
 
         document.getElementById('chargingIndicator').style.width = '4em';
         document.getElementById('chargingIndicator').style.marginTop = '10px';
