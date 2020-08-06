@@ -298,7 +298,7 @@
         document.getElementById('logoPic').style.height = "5em";
       }
       else   {
-        document.getElementById('logoPic').style.height = "5.3em";
+        document.getElementById('logoPic').style.height = "6em";
       }
     }
     else   {  // portrait
@@ -306,7 +306,8 @@
       var containerDim = Math.floor(useableWidth);
       containerDim = Math.floor((containerDim / ratio) * 1.2);
       if (SIZE == "small")   {
-        document. getElementById('chargingIndicator').style.width = '6em';
+      }
+      else   {
         document. getElementById('logoPic').style.height ="6em"
       }
       var tMargin = (screen.height - 270 - containerDim) / 2;
@@ -321,6 +322,8 @@
       }
       else   {
         bar.text.style.fontSize = '4rem';
+        document.getElementById('chargingIndicator').style.width = '6em';
+        document.getElementById('logoPic').style.height ="6em"
       }
 
       document.getElementById('helpButton').style.width = '3rem';
@@ -328,11 +331,14 @@
     }
     else   {
       bar.text.style.fontSize = '7.5rem';
-      document.getElementById('logoPic').style.height = '4.6rem';
+      document.getElementById('logoPic').style.height = '6rem';
       document.getElementById('helpButton').style.width = '3.5rem';
       document.getElementById('xButton').style.width = '3.5rem';
-    }
 
+      if (ORIENT == "portrait")   {
+        document.getElementById('logoPic').style.height ='6em';
+      }
+    }
 
     var s = "document.getElementById('container').style.width = '" + containerDim + "px'";
     eval(s)
