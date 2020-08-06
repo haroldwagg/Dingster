@@ -217,14 +217,14 @@
 
   document.addEventListener("deviceready", starter, false);
 //  window.onload = setTimeout(function() {starter();}, 1000);
-  window.addEventListener("orientationchange", onOChange);
+  window.addEventListener("orientationchange", onOChange2);
 
   function starter()   {
     window.plugins.insomnia.keepAwake();
     setTimeout(function() { processDings(); }, 5500);
     dimTimer = setTimeout(function() { doDimScreen(); }, DIM_DELAY);
     initializeBar();
-    onOChange();
+    onOChange2();
   }
 
   function initializeBar()   {
@@ -279,6 +279,93 @@
     var oput = "ORIENTATION: " + ORIENT + "\rSCREEN WIDTH: " + screen.width;
     oput += "\rSCREEN HEIGHT: " + screen.height + "\rPIXEL RATIO: " + ratio;
     alert (oput);
+  }
+
+  function onOChange2()  {
+    var containerDim;
+
+    doBrightScreen();
+    ORIENT = (screen.height > screen.width) ? "portrait" : "landscape";
+
+    if (ORIENT == "landscape")   {
+      var useableHeight = window.innerHeight - 105;
+      containerDim = Math.floor(useableHeight - 350);
+      containerDim = Math.floor(containerDim / ratio);
+    }
+    else   {   // portrait
+      var useableWidth = screen.width;
+      containerDim = Math.floor(useableWidth);
+      containerDim = Math.floor((containerDim / ratio) * 1.2);
+    }
+
+    if (containerDim < 500)   {
+//  SMALL ALL
+      document.getElementById('helpButton').style.width = '3rem';
+      document.getElementById('xButton').style.width = '3rem';
+
+//  SMALL LANDSCAPE
+      if (ORIENT == "landscape")   {
+        document.getElementById('container').style.marginTop = '.75em';
+
+        document.getElementById('chargingIndicator').style.width = '4em';
+        document.getElementById('chargingIndicator').style.marginTop = '10px';
+        document.getElementById('logoPic').style.height = "5em";
+
+        bar.text.style.fontSize = '3.1rem';
+      }
+//  SMALL PORTRAIT
+      else   {
+        bar.text.style.fontSize = '4rem';
+        document.getElementById('chargingIndicator').style.width = '6em';
+        document.getElementById('logoPic').style.height ="6em";
+
+        var tMargin = (screen.height - 270 - containerDim) / 2;
+        var v = "document.getElementById('container').style.marginTop = '" + Math.floor(tMargin) + "px'";
+        eval(v);
+
+      }
+    }
+    else   {
+//  LARGE ALL
+      bar.text.style.fontSize = '7.5rem';
+      document.getElementById('logoPic').style.height = '6rem';
+      document.getElementById('helpButton').style.width = '3.5rem';
+      document.getElementById('xButton').style.width = '3.5rem';
+
+//  LARGE LANDSCAPE
+      if (ORIENT == "landscape")   {
+        document.getElementById('container').style.marginTop = '.75em';
+        document.getElementById('logoPic').style.height = "6em";
+      }
+//  LARGE PORTRAIT
+      else   {
+        document. getElementById('logoPic').style.height ="6em";
+
+        var tMargin = (screen.height - 270 - containerDim) / 2;
+        var v = "document.getElementById('container').style.marginTop = '" + Math.floor(tMargin) + "px'";
+        eval(v);
+      }
+    }
+
+    var s = "document.getElementById('container').style.width = '" + containerDim + "px'";
+    eval(s)
+    var t = "document.getElementById('container').style.height = '" + containerDim + "px'";
+    eval(t);
+
+
+    document.getElementById('helpButton').style.position = 'absolute';
+    document.getElementById('helpButton').style.left = '12px';
+    document.getElementById('helpButton').style.bottom = 0;
+    document.getElementById('helpButton').style.marginBottom = '122px';
+
+    document.getElementById('xButton').style.position = 'absolute';
+    document.getElementById('xButton').style.right = '12px';
+    document.getElementById('xButton').style.bottom = 0;
+    document.getElementById('xButton').style.marginBottom = '122px';
+
+    document.getElementById('helpButton').style.visibility = 'visible';
+    document.getElementById('xButton').style.visibility = 'visible';
+    document.getElementById('logoPic').style.visibility = 'visible';
   }
 
   function onOChange()   {
