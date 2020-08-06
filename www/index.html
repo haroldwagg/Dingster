@@ -322,24 +322,23 @@
         var tMargin = (screen.height - 270 - containerDim) / 2;
         var v = "document.getElementById('container').style.marginTop = '" + Math.floor(tMargin) + "px'";
         eval(v);
-
       }
     }
     else   {
 //  LARGE ALL
-      bar.text.style.fontSize = '7.5rem';
-      document.getElementById('logoPic').style.height = '6rem';
       document.getElementById('helpButton').style.width = '3.5rem';
       document.getElementById('xButton').style.width = '3.5rem';
 
 //  LARGE LANDSCAPE
       if (ORIENT == "landscape")   {
         document.getElementById('container').style.marginTop = '.75em';
-        document.getElementById('logoPic').style.height = "6em";
+        document.getElementById('logoPic').style.height = '6rem';
+        bar.text.style.fontSize = '6rem';
       }
 //  LARGE PORTRAIT
       else   {
-        document. getElementById('logoPic').style.height ="6em";
+        document. getElementById('logoPic').style.height ='6rem';
+        bar.text.style.fontSize = '7.5rem';
 
         var tMargin = (screen.height - 270 - containerDim) / 2;
         var v = "document.getElementById('container').style.marginTop = '" + Math.floor(tMargin) + "px'";
@@ -351,7 +350,6 @@
     eval(s)
     var t = "document.getElementById('container').style.height = '" + containerDim + "px'";
     eval(t);
-
 
     document.getElementById('helpButton').style.position = 'absolute';
     document.getElementById('helpButton').style.left = '12px';
