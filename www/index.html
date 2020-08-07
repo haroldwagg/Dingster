@@ -305,8 +305,8 @@
     }
     else   {   // portrait
       var useableWidth = screen.width;
-      containerDim = Math.floor(useableWidth - 150);
-      containerDim = Math.floor((containerDim) * 1.2);
+      containerDim = Math.floor(useableWidth + 100);
+      containerDim = Math.floor(containerDim / ratio);
     }
  alert("ContainerDim = " + containerDim);
 
