@@ -20,7 +20,6 @@
         <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     </gap:config-file>
 
-
     <plugin name="cordova-plugin-dialogs" source="npm" spec="~1.2.0" />
     <plugin name="phonegap-plugin-battery-status" source="npm" />
     <plugin name="cordova-plugin-media" source="npm" spec="~2.2.0" />
