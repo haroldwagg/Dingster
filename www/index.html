@@ -290,16 +290,25 @@
 //    alert("screen.height = " + screen.height + "\nscreen.availHeight = " + screen.availHeight + "\nwindow.innerHeight = " + window.innerHeight + "\ndocument.body.clientHeight = " + document.body.clientHeight + "\nwindow.outerHeight = " + window.outerHeight + "\n\nscreen.width = " + screen.width + "\nscreen.availWidth = " + screen.availWidth + "\nwindow.innerWidth = " + window.innerWidth + "\ndocument.body.clientWidth = " + document.body.clientWidth + "\nwindow.outerWidth = " + window.outerWidth);
 
     if (ORIENT == "landscape")   {
-      var useableHeight = screen.height;
-      containerDim = Math.floor(useableHeight - (115 * ratio));
-      containerDim = Math.floor(containerDim);
+      var useableHeight;
+
+// Ask me no questions -- I'll tell you no lies.
+      if (window.innerHeight > window.innerWidth)   {
+        useableHeight = window.innerWidth - 65;
+      }
+      else   {
+        useableHeight = window.innerHeight - 65;
+      }
+
+      containerDim = Math.floor(useableHeight);
+      containerDim = Math.floor(containerDim / ratio);
     }
     else   {   // portrait
       var useableWidth = screen.width;
       containerDim = Math.floor(useableWidth - 150);
       containerDim = Math.floor((containerDim) * 1.2);
     }
-// alert("ContainerDim = " + containerDim);
+ alert("ContainerDim = " + containerDim);
 
     if (containerDim < 500)   {
 //  SMALL ALL
