@@ -11,6 +11,7 @@
     <icon src="icon.png" />
     <preference name="android-minSdkVersion" value="21" />
     <preference name="android-targetSdkVersion" value="28" />
+    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
 
     <gap:config-file platform="android" parent="/manifest/application">
         <activity android:launchMode="singleTask" />
@@ -26,6 +27,6 @@
     <plugin name="cordova-plugin-insomnia" version="4.1.0" source="npm" />
 <!--
     <plugin name="cordova-plugin-background-mode" source="npm" />
--->    
+-->
     <access origin="*" />
 </widget>
