@@ -221,16 +221,17 @@
 
   function starter()   {
     window.plugins.insomnia.keepAwake();
-    cordova.plugins.backgroundMode.setEnabled(true);
-    cordova.plugins.backgroundMode.on('activate', function() {
-      cordova.plugins.backgroundMode.disableWebViewOptimizations();
-    });
-    cordova.plugins.backgroundMode.setDefaults({
-      title: "theDingster Background",
-      text: "[Tap HERE to Restore]",
-      resume: true,
-      hidden: false
-    });
+
+//    cordova.plugins.backgroundMode.setEnabled(true);
+//    cordova.plugins.backgroundMode.on('activate', function() {
+//      cordova.plugins.backgroundMode.disableWebViewOptimizations();
+//    });
+//    cordova.plugins.backgroundMode.setDefaults({
+//      title: "theDingster Background",
+//      text: "[Tap HERE to Restore]",
+//      resume: true,
+//      hidden: false
+//    });
 
     setTimeout(function() { processDings(); }, 5500);
     dimTimer = setTimeout(function() { doDimScreen(); }, DIM_DELAY);
