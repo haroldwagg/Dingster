@@ -220,7 +220,7 @@
   window.addEventListener("orientationchange", onOChange2);
 
   function starter()   {
-    window.plugins.insomnia.keepAwake();
+//    window.plugins.insomnia.keepAwake();
 
 //    cordova.plugins.backgroundMode.setEnabled(true);
 //    cordova.plugins.backgroundMode.on('activate', function() {
@@ -636,7 +636,7 @@
   function doExit()   {
     clearTimeout(dimTimer);
     clearTimeout(dingLooper);
-    window.plugins.insomnia.allowSleepAgain();
+//    window.plugins.insomnia.allowSleepAgain();
     navigator.app.exitApp();
   }
 
