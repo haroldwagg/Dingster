@@ -490,6 +490,8 @@
       PLUGGED_STATUS = battery.charging;
       bar.animate(batteryValue/100);
 
+      cordova.plugins.backgroundMode.configure({ text: "[ " + batteryValue + "% ] [Tap HERE to Restore]", resume: true  });
+
       if (PLUGGED_STATUS)   {
         document.getElementById('chargingIndicator').src = "chargedACTIVE.png";
       }
