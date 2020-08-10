@@ -212,7 +212,7 @@
     "#00f200",
     "#00f200",
     "#00f200",
-    "#0000ee"
+    "#33ccff"
   ];
 
   document.addEventListener("deviceready", starter, false);
@@ -664,6 +664,115 @@
   function getResolution() {
     alert("Your screen resolution is: " + window.screen.width * window.devicePixelRatio + "x" + window.screen.height * window.devicePixelRatio);
   }
+
+  function onOChange3()  {
+    var containerDim;
+
+    doBrightScreen();
+    ORIENT = (screen.height > screen.width) ? "portrait" : "landscape";
+
+//    alert("screen.height = " + screen.height + "\nscreen.availHeight = " + screen.availHeight + "\nwindow.innerHeight = " + window.innerHeight + "\ndocument.body.clientHeight = " + document.body.clientHeight + "\nwindow.outerHeight = " + window.outerHeight + "\n\nscreen.width = " + screen.width + "\nscreen.availWidth = " + screen.availWidth + "\nwindow.innerWidth = " + window.innerWidth + "\ndocument.body.clientWidth = " + document.body.clientWidth + "\nwindow.outerWidth = " + window.outerWidth);
+
+    if (ORIENT == "landscape")   {
+      var useableHeight;
+
+// Ask me no questions -- I'll tell you no lies.
+      if (window.innerHeight > window.innerWidth)   {
+        useableHeight = window.innerWidth * 0.75;
+      }
+      else   {
+        useableHeight = window.innerHeight * 0.75;
+      }
+
+      containerDim = Math.floor(useableHeight);
+      containerDim = Math.floor(containerDim / ratio);
+    }
+    else   {   // portrait
+      var useableWidth = screen.width;
+      containerDim = Math.floor(useableWidth + 100);
+      containerDim = Math.floor(containerDim / ratio);
+    }
+// alert("ContainerDim = " + containerDim);
+
+    if (containerDim < 500)   {
+//  SMALL ALL
+      document.getElementById('helpButton').style.width = '3rem';
+      document.getElementById('xButton').style.width = '3rem';
+
+//  SMALL LANDSCAPE
+      if (ORIENT == "landscape")   {
+// alert("small landscape");
+        document.getElementById('container').style.marginTop = '.3em';
+
+        document.getElementById('chargingIndicator').style.width = '4em';
+        document.getElementById('chargingIndicator').style.marginTop = '10px';
+        document.getElementById('logoPic').style.height = "5em";
+
+        if (containerDim < 300)   {
+          bar.text.style.fontSize = '2.5rem';
+        }
+        else   {
+          bar.text.style.fontSize = '4.5rem';
+          document.getElementById('chargingIndicator').style.width = '6em';
+        }
+      }
+//  SMALL PORTRAIT
+      else   {
+// alert("small portrait");
+        bar.text.style.fontSize = '4rem';
+        document.getElementById('chargingIndicator').style.width = '6em';
+        document.getElementById('logoPic').style.height ="6em";
+
+        var tMargin = (screen.height - 270 - containerDim) / 2;
+        var v = "document.getElementById('container').style.marginTop = '" + Math.floor(tMargin) + "px'";
+        eval(v);
+      }
+    }
+    else   {
+//  LARGE ALL
+      document.getElementById('helpButton').style.width = '3.5rem';
+      document.getElementById('xButton').style.width = '3.5rem';
+
+//  LARGE LANDSCAPE
+      if (ORIENT == "landscape")   {
+// alert("large landscape");
+        document.getElementById('container').style.marginTop = '.75em';
+        document.getElementById('logoPic').style.height = '6rem';
+        bar.text.style.fontSize = '6rem';
+      }
+//  LARGE PORTRAIT
+      else   {
+// alert("large portrait");
+        document. getElementById('logoPic').style.height ='5rem';
+        bar.text.style.fontSize = '7.5rem';
+        document.getElementById('chargingIndicator').style.width = '7em';
+
+        var tMargin = (screen.height - 265 - containerDim) / 2;
+        var v = "document.getElementById('container').style.marginTop = '" + Math.floor(tMargin) + "px'";
+        eval(v);
+      }
+    }
+
+    var s = "document.getElementById('container').style.width = '" + containerDim + "px'";
+    eval(s)
+    var t = "document.getElementById('container').style.height = '" + containerDim + "px'";
+    eval(t);
+
+    document.getElementById('helpButton').style.position = 'absolute';
+    document.getElementById('helpButton').style.left = '12px';
+    document.getElementById('helpButton').style.bottom = 0;
+    document.getElementById('helpButton').style.marginBottom = '122px';
+
+    document.getElementById('xButton').style.position = 'absolute';
+    document.getElementById('xButton').style.right = '12px';
+    document.getElementById('xButton').style.bottom = 0;
+    document.getElementById('xButton').style.marginBottom = '122px';
+
+    document.getElementById('helpButton').style.visibility = 'visible';
+    document.getElementById('xButton').style.visibility = 'visible';
+    document.getElementById('logoPic').style.visibility = 'visible';
+  }
+
 
 
 </script>
