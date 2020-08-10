@@ -275,6 +275,7 @@
     bar.text.style.color = '#cccccc';
 
     doAReading();
+    cordova.plugins.backgroundMode.configure({ text: "[ " + batteryValue + "% ] [Tap HERE to Restore]", resume: true  });
 
   }
 
@@ -503,6 +504,8 @@
         battery.onlevelchange = function() {
           batteryValue = Math.round(battery.level * 100);
           bar.animate(batteryValue/100);
+
+          cordova.plugins.backgroundMode.configure({ text: "[ " + batteryValue + "% ] [Tap HERE to Restore]", resume: true  });
 
           if(batteryValue == 100 && prevReading > 0)   {
             doDing("fullcharge", true);
