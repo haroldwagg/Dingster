@@ -685,12 +685,12 @@
 //      }
 
       containerDim = Math.floor(useableHeight);
-//      containerDim = Math.floor(containerDim / ratio);
+      containerDim = Math.floor(containerDim / ratio / ratio);
     }
     else   {   // portrait
       var useableWidth = realWidth - 100;  // margin
       containerDim = Math.floor(useableWidth);
-//      containerDim = Math.floor(containerDim / ratio);
+      containerDim = Math.floor(containerDim / ratio / ratio);
     }
  alert("o3 - ContainerDim = " + containerDim);
 
