@@ -667,32 +667,32 @@
 
   function onOChange3()  {
     var containerDim;
+    var realHeight = screen.height * ratio;
+    var realWidth = screen.width * ratio;
 
     doBrightScreen();
     ORIENT = (screen.height > screen.width) ? "portrait" : "landscape";
 
-//    alert("screen.height = " + screen.height + "\nscreen.availHeight = " + screen.availHeight + "\nwindow.innerHeight = " + window.innerHeight + "\ndocument.body.clientHeight = " + document.body.clientHeight + "\nwindow.outerHeight = " + window.outerHeight + "\n\nscreen.width = " + screen.width + "\nscreen.availWidth = " + screen.availWidth + "\nwindow.innerWidth = " + window.innerWidth + "\ndocument.body.clientWidth = " + document.body.clientWidth + "\nwindow.outerWidth = " + window.outerWidth);
-
     if (ORIENT == "landscape")   {
-      var useableHeight;
+      var useableHeight = realHeight - 150;  // settings box
 
 // Ask me no questions -- I'll tell you no lies.
-      if (window.innerHeight > window.innerWidth)   {
-        useableHeight = window.innerWidth * 0.75;
-      }
-      else   {
-        useableHeight = window.innerHeight * 0.75;
-      }
+//      if (window.innerHeight > window.innerWidth)   {
+//        useableHeight = window.innerWidth * 0.75;
+//      }
+//      else   {
+//        useableHeight = window.innerHeight * 0.75;
+//      }
 
       containerDim = Math.floor(useableHeight);
-      containerDim = Math.floor(containerDim / ratio);
+//      containerDim = Math.floor(containerDim / ratio);
     }
     else   {   // portrait
-      var useableWidth = screen.width;
-      containerDim = Math.floor(useableWidth + 100);
-      containerDim = Math.floor(containerDim / ratio);
+      var useableWidth = realWidth - 100;  // margin
+      containerDim = Math.floor(useableWidth);
+//      containerDim = Math.floor(containerDim / ratio);
     }
-// alert("ContainerDim = " + containerDim);
+ alert("ContainerDim = " + containerDim);
 
     if (containerDim < 500)   {
 //  SMALL ALL
