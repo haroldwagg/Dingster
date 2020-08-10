@@ -44,12 +44,12 @@
 <div id="logoDiv" onClick ="doBrightScreen()" style="position: absolute; top: 0; left: 0"><img id="logoPic" src="logo4.png" onClick ="doBrightScreen()" style="visibility: hidden;"" /></div>
 
 <a onClick="doBrightScreen()"><div id="container"onClick="doBrightScreen()"></div></a>
-<a onClick="doBrightScreen()"><div id="chargingIndicatorDiv" style="text-align: center;">
-  <img src="" id="chargingIndicator" style="visibility: hidden; width: 7em; margin-top: 20px; -webkit-transition: filter 2s ease; border-radius: 8px;" />
+<div id="chargingIndicatorDiv" style="text-align: center;" onClick="doBrightScreen()">
+  <img src="" id="chargingIndicator" style="visibility: hidden; width: 7em; margin-top: 20px; -webkit-transition: filter 2s ease; border-radius: 8px;" onClick="doBrightScreen()" />
   <img src="help.png" id="helpButton" onClick="doHelp()" style="visibility: hidden; text-decoration: none; -webkit-transition: filter 2s ease;" />
   <img src="x.png" id="xButton" onClick="confirmExit()" style="visibility: hidden; text-decoration: none; -webkit-transition: filter 2s ease;" />
 
-</div></a>
+</div>
 
 <div id="settingsDiv">
   <a onClick="doBrightScreen()"><p id="settingsP">
@@ -490,7 +490,7 @@
       PLUGGED_STATUS = battery.charging;
       bar.animate(batteryValue/100);
 
-      cordova.plugins.backgroundMode.configure({ text: "[ " + batteryValue + "% ] [Tap HERE to Restore]", resume: true  });
+  //    cordova.plugins.backgroundMode.configure({ text: "[ " + batteryValue + "% ] [Tap HERE to Restore]", resume: true  });
 
       if (PLUGGED_STATUS)   {
         document.getElementById('chargingIndicator').src = "chargedACTIVE.png";
@@ -607,6 +607,7 @@
   }
 
   function doHelp()   {
+    doBrightScreen();
     navigator.notification.alert(
       "If your phone and its charger are not always the best of friends, then The Dingster is for you. " +
         " This app will monitor your device while it charges and let you know whether everything is OK or whether there may be a problem with which you need to deal.\n\n" +
@@ -642,7 +643,7 @@
   function doExit()   {
     clearTimeout(dimTimer);
     clearTimeout(dingLooper);
-//    window.plugins.insomnia.allowSleepAgain();
+    window.plugins.insomnia.allowSleepAgain();
     navigator.app.exitApp();
   }
 
@@ -655,18 +656,6 @@
       return;
     }
   }
-
-  document.addEventListener("backbutton", function (e) {               // Disable Back Button
-      e.preventDefault();
-      var q = confirm("You are about to exit The Dingster. \nIs this what you want to do?");
-      if (q == true)   {
-        doExit();
-      }
-      else   {
-        ;
-      }
-    },
-  false );
 
 
 
