@@ -217,7 +217,7 @@
 
   document.addEventListener("deviceready", starter, false);
 //  window.onload = setTimeout(function() {starter();}, 1000);
-  window.addEventListener("orientationchange", onOChange2);
+  window.addEventListener("orientationchange", onOChange3);
 
   function starter()   {
     window.plugins.insomnia.keepAwake();
@@ -237,7 +237,7 @@
     setTimeout(function() { processDings(); }, 5500);
     dimTimer = setTimeout(function() { doDimScreen(); }, DIM_DELAY);
     initializeBar();
-    onOChange2();
+    onOChange3();
     getResolution();
   }
 
@@ -692,7 +692,7 @@
       containerDim = Math.floor(useableWidth);
 //      containerDim = Math.floor(containerDim / ratio);
     }
- alert("ContainerDim = " + containerDim);
+ alert("o3 - ContainerDim = " + containerDim);
 
     if (containerDim < 500)   {
 //  SMALL ALL
