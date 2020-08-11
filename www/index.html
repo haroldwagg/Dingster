@@ -277,14 +277,6 @@
 
     doAReading();
 
-    cordova.plugins.backgroundMode.setDefaults({
-      title: "theDingster Background",
-      text: "[ " + batteryValue + "% ] [ Tap HERE to Restore ]",
-      resume: true,
-      hidden: false
-    });
-
-
   }
 
   function getScreenSize()   {
@@ -565,22 +557,17 @@
     ORIENT = (screen.height > screen.width) ? "portrait" : "landscape";
 
     if (ORIENT == "landscape")   {
-      var heightInPx = Math.floor(.45 * screen.height);
-//      alert(screen.height + "   " + heightInPx);
+      var heightInPx = Math.floor(.44 * screen.height);
       var q1 = "document.getElementById('container').style.height = '" + heightInPx + "px';";
-//      alert(q1);
       eval(q1);
       var q2 = "document.getElementById('container').style.width = '" + heightInPx + "px';";
-//      alert(q2);
       eval(q2);
 
       var containerTopMargin = Math.floor((screen.height - heightInPx) / 2);
-//      alert(containerTopMargin)
       if (containerTopMargin < 100)   {
         containerTopMargin = 100;
       }
       var q3 = "document.getElementById('container').style.marginTop = '" + (containerTopMargin - 100) + "px';";
-//      alert(q3);
       eval(q3);
 
       document.getElementById('logoPic').style.height ="4.7em";
@@ -591,19 +578,15 @@
       else   {
         bar.text.style.fontSize = '4rem';
       }
-
     }
     else   {   // portrait
       document.getElementById('container').style.width = "75%";
       var widthInPx = Math.floor(.75 * screen.width);
       var q1 = "document.getElementById('container').style.height = '" + widthInPx + "px';";
-//      alert(q1);
       eval(q1);
 
       var containerTopMargin = Math.floor((screen.height - widthInPx) / 2);
-//      alert(containerTopMargin)
       var q2 = "document.getElementById('container').style.marginTop = '" + (containerTopMargin - 85) + "px';";
-//      alert(q2);
       eval(q2);
 
       document.getElementById('logoPic').style.height ="6em";
