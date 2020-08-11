@@ -456,6 +456,7 @@
         doDing('disconnected', true);
         document.getElementById('chargingIndicator').src = "nochargingINACTIVE.png";
       }
+      cordova.plugins.backgroundMode.unlock();
     });
   }
 
