@@ -45,7 +45,7 @@
 
 <a onClick="doBrightScreen()"><div id="container"onClick="doBrightScreen()"></div></a>
 <div id="chargingIndicatorDiv" style="text-align: center;" onClick="doBrightScreen()">
-  <img src="" id="chargingIndicator" style="visibility: hidden; width: 7em; margin-top: 20px; -webkit-transition: filter 2s ease; border-radius: 8px;" onClick="doBrightScreen()" />
+  <img src="" id="chargingIndicator" style="visibility: hidden; width: 7em; margin-top: 15px; -webkit-transition: filter 2s ease; border-radius: 8px;" onClick="doBrightScreen()" />
   <img src="help.png" id="helpButton" onClick="doHelp()" style="visibility: hidden; text-decoration: none; -webkit-transition: filter 2s ease;" />
   <img src="x.png" id="xButton" onClick="confirmExit()" style="visibility: hidden; text-decoration: none; -webkit-transition: filter 2s ease;" />
 
@@ -558,7 +558,7 @@
     ORIENT = (screen.height > screen.width) ? "portrait" : "landscape";
 
     if (ORIENT == "landscape")   {
-      var heightInPx = Math.floor(.47 * screen.height);
+      var heightInPx = Math.floor(.45 * screen.height);
 //      alert(screen.height + "   " + heightInPx);
       var q1 = "document.getElementById('container').style.height = '" + heightInPx + "px';";
 //      alert(q1);
