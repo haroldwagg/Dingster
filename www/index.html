@@ -226,7 +226,6 @@
     cordova.plugins.backgroundMode.setEnabled(true);
     cordova.plugins.backgroundMode.on('activate', function() {
       cordova.plugins.backgroundMode.disableWebViewOptimizations();
-      cordova.plugins.backgroundMode.configure({ text: "[ " + batteryValue + "% ] [Tap HERE to Restore]", resume: true  });
     });
     cordova.plugins.backgroundMode.setDefaults({
       title: "theDingster Background",
@@ -277,7 +276,14 @@
     bar.text.style.color = '#cccccc';
 
     doAReading();
-//    cordova.plugins.backgroundMode.configure({ text: "[ " + batteryValue + "% ] [Tap HERE to Restore]", resume: true  });
+
+    cordova.plugins.backgroundMode.setDefaults({
+      title: "theDingster Background",
+      text: "[ " + batteryValue + "% ] [ Tap HERE to Restore ]",
+      resume: true,
+      hidden: false
+    });
+
 
   }
 
@@ -384,7 +390,7 @@
       PLUGGED_STATUS = battery.charging;
       bar.animate(batteryValue/100);
 
-  //    cordova.plugins.backgroundMode.configure({ text: "[ " + batteryValue + "% ] [Tap HERE to Restore]", resume: true  });
+  //    cordova.plugins.backgroundMode.configure({ text: "[ " + batteryValue + "% ] [ Tap HERE to Restore ]", resume: true  });
 
       if (PLUGGED_STATUS)   {
         document.getElementById('chargingIndicator').src = "chargedACTIVE.png";
@@ -401,7 +407,7 @@
           batteryValue = Math.round(battery.level * 100);
           bar.animate(batteryValue/100);
 
-          cordova.plugins.backgroundMode.configure({ text: "[ " + batteryValue + "% ] [Tap HERE to Restore]", resume: true  });
+          cordova.plugins.backgroundMode.configure({ text: "[ " + batteryValue + "% ] [ Tap HERE to Restore ]", resume: true  });
 
           if(batteryValue == 100 && prevReading > 0)   {
             doDing("fullcharge", true);
