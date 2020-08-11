@@ -569,6 +569,9 @@
 
       var containerTopMargin = Math.floor((screen.height - heightInPx) / 2);
 //      alert(containerTopMargin)
+      if (containerTopMargin < 100)   {
+        containerTopMargin = 100;
+      }
       var q3 = "document.getElementById('container').style.marginTop = '" + (containerTopMargin - 100) + "px';";
 //      alert(q3);
       eval(q3);
@@ -592,7 +595,7 @@
 
       var containerTopMargin = Math.floor((screen.height - widthInPx) / 2);
 //      alert(containerTopMargin)
-      var q2 = "document.getElementById('container').style.marginTop = '" + (containerTopMargin - 60) + "px';";
+      var q2 = "document.getElementById('container').style.marginTop = '" + (containerTopMargin - 85) + "px';";
 //      alert(q2);
       eval(q2);
 
@@ -604,13 +607,13 @@
     document.getElementById('helpButton').style.left = '12px';
     document.getElementById('helpButton').style.bottom = 0;
     document.getElementById('helpButton').style.marginBottom = '122px';
-    document.getElementById('helpButton').style.width = '3.5rem';
+    document.getElementById('helpButton').style.width = '3rem';
 
     document.getElementById('xButton').style.position = 'absolute';
     document.getElementById('xButton').style.right = '12px';
     document.getElementById('xButton').style.bottom = 0;
     document.getElementById('xButton').style.marginBottom = '122px';
-    document.getElementById('xButton').style.width = '3.5rem';
+    document.getElementById('xButton').style.width = '3rem';
 
     document.getElementById('helpButton').style.visibility = 'visible';
     document.getElementById('xButton').style.visibility = 'visible';
