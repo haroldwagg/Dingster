@@ -500,6 +500,8 @@
   }
 
   function doHelp()   {
+    confirmBackButtonOption();
+
     doBrightScreen();
     navigator.notification.alert(
       "If your phone and its charger are not always the best of friends, then The Dingster is for you. " +
@@ -612,6 +614,18 @@
     document.getElementById('logoPic').style.visibility = 'visible';
   }
 
+  function confirmBackButtonOption()   {
+    navigator.notification.confirm(
+      'From here you can either EXIT the Dingster or put it in BACKGROUND Mode so you can use your device normally. Which do you prefer?',
+       onConfirm,
+      '',
+      ['Go to BACKGROUND', 'EXIT Dingster']
+    );
+  }
+
+  function onConfirm(buttonIndex) {
+      alert('You selected button ' + buttonIndex);
+  }
 
 </script>
 
