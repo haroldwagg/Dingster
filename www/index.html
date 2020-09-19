@@ -233,7 +233,8 @@
       resume: true,
       hidden: false
     });
-    cordova.plugins.backgroundMode.overrideBackButton();
+
+//    cordova.plugins.backgroundMode.overrideBackButton();
 
     setTimeout(function() { processDings(); }, 5500);
     dimTimer = setTimeout(function() { doDimScreen(); }, DIM_DELAY);
@@ -500,8 +501,6 @@
   }
 
   function doHelp()   {
-    confirmBackButtonOption();
-
     doBrightScreen();
     navigator.notification.alert(
       "If your phone and its charger are not always the best of friends, then The Dingster is for you. " +
@@ -626,6 +625,12 @@
   function onConfirm(buttonIndex) {
       alert('You selected button ' + buttonIndex);
   }
+
+  document.addEventListener("backbutton", function(e) {
+    e.preventDefault();
+    confirmBackButtonOption();
+  }, false );
+
 
 </script>
 
