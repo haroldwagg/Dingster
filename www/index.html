@@ -220,7 +220,7 @@
   window.addEventListener("orientationchange", onOChange3);
 
   function starter()   {
-    document.addEventListener("backbutton", confirmBackButtonOption(), false);
+
 
     window.plugins.insomnia.keepAwake();
 
@@ -241,6 +241,7 @@
     dimTimer = setTimeout(function() { doDimScreen(); }, DIM_DELAY);
     initializeBar();
     onOChange3();
+    document.addEventListener("backbutton", confirmBackButtonOption(), false);
   }
 
   function initializeBar()   {
@@ -615,7 +616,7 @@
   }
 
   function confirmBackButtonOption()   {
-    e.preventDefault();
+//    e.preventDefault();
     navigator.notification.confirm(
       'From here you can either EXIT the Dingster or put it in BACKGROUND Mode so you can use your device normally. Which do you prefer?',
        onConfirm,
