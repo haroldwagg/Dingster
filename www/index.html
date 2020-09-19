@@ -615,7 +615,7 @@
   }
 
   function confirmBackButtonOption()   {
-//    e.preventDefault();
+    e.preventDefault();
     navigator.notification.confirm(
       'From here you can either EXIT the Dingster or put it in BACKGROUND Mode so you can use your device normally. Which do you prefer?',
        onConfirm,
@@ -625,7 +625,13 @@
   }
 
   function onConfirm(buttonIndex) {
-      alert('You selected button ' + buttonIndex);
+    if (buttonIndex == "2")   {
+      window.plugins.insomnia.allowSleepAgain();
+      navigator.app.exitApp();
+    }
+    else   {
+      cordova.plugins.backgroundMode.moveToBackground();
+    }
   }
 
 
