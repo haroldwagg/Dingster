@@ -614,6 +614,7 @@
   }
 
   function confirmBackButtonOption()   {
+//    e.preventDefault();
     navigator.notification.confirm(
       'From here you can either EXIT the Dingster or put it in BACKGROUND Mode so you can use your device normally. Which do you prefer?',
        onConfirm,
@@ -626,10 +627,7 @@
       alert('You selected button ' + buttonIndex);
   }
 
-  document.addEventListener("backbutton", function(e) {
-    e.preventDefault();
-    confirmBackButtonOption();
-  }, false );
+  document.addEventListener("backbutton", confirmBackButtonOption(), false);
 
 
 </script>
