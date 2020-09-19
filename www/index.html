@@ -242,6 +242,11 @@
     initializeBar();
     onOChange3();
     document.addEventListener("backbutton", confirmBackButtonOption, false);
+    document.addEventListener("resume", onResume, false);
+  }
+
+  function onResume()   {
+    doBrightScreen();
   }
 
   function initializeBar()   {
