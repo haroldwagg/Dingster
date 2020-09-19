@@ -241,7 +241,7 @@
     dimTimer = setTimeout(function() { doDimScreen(); }, DIM_DELAY);
     initializeBar();
     onOChange3();
-    document.addEventListener("backbutton", confirmBackButtonOption(), false);
+    document.addEventListener("backbutton", confirmBackButtonOption, false);
   }
 
   function initializeBar()   {
