@@ -13,7 +13,7 @@
     <preference name="android-minSdkVersion" value="21" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <preference name='phonegap-version' value='cli-9.0.0' />
-    <preference name='pgb-builder-version' value='2' />
+    <preference name='pgb-builder-version' value='1' />
     <preference name="android-targetSdkVersion" value="29" />
 
     <gap:config-file platform="android" parent="/manifest/application">
@@ -21,7 +21,7 @@
     </gap:config-file>
 
     <gap:config-file platform="android" parent="/manifest">
-        <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+        <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /><uses-permission android:name="android.permission.INTERNET" />
     </gap:config-file>
 
     <plugin name="cordova-plugin-insomnia" version="4.1.0" source="npm" />
