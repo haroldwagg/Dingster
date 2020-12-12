@@ -21,7 +21,7 @@
     </gap:config-file>
 
     <gap:config-file platform="android" parent="/manifest">
-        <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /><uses-permission android:name="android.permission.INTERNET" />
+        <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     </gap:config-file>
 
     <plugin name="cordova-plugin-insomnia" version="4.1.0" source="npm" />
