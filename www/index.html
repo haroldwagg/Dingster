@@ -227,9 +227,9 @@
 
     cordova.plugins.backgroundMode.setEnabled(true);
 
-//    cordova.plugins.backgroundMode.on('activate', function() {
-//      cordova.plugins.backgroundMode.disableWebViewOptimizations();
-//    });
+    cordova.plugins.backgroundMode.on('activate', function() {
+      cordova.plugins.backgroundMode.disableWebViewOptimizations();
+    });
 
     cordova.plugins.backgroundMode.setDefaults({
       title: "theDingster Background",
