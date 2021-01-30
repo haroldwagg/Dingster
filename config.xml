@@ -25,7 +25,9 @@
 
     <plugin name="cordova-plugin-dialogs" source="npm" spec="~1.2.0" />
     <plugin name="phonegap-plugin-battery-status" source="npm" />
+<!--
     <plugin name="com-darryncampbell-cordova-plugin-intent" source="npm" />
+-->
     <plugin name="cordova-plugin-media" source="npm" spec="~2.2.0" />
     <plugin name="cordova-plugin-insomnia" version="4.1.0" source="npm" />
 
